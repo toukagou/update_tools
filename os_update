@@ -1,0 +1,35 @@
+#!/usr/bin/python3
+
+import subprocess
+import os
+
+# 更新系统
+def update_system():
+    print("更新系统...")
+    subprocess.run(['yum', 'update'], check=True)
+
+# 升级所有包
+def upgrade_all():
+    print("升级所有包...")
+    subprocess.run(['yum', 'upgrade', '-y'], check=True)
+
+# 更新到最新的 CentOS 7 版本
+def update_to_centos7_latest():
+    print("更新到最新的 CentOS 7 版本...")
+    subprocess.run(['yum', 'update', '-y', 'centos-release'], check=True)
+    subprocess.run(['yum', 'upgrade', '-y'], check=True)
+
+# 执行脚本
+if __name__ == "__main__":
+    # 确保用户是 root
+    if os.geteuid() != 0:
+        exit("你必须是 root 用户才能运行此脚本。\n请使用 'sudo python3 script_name.py' 来运行。")
+    
+    # 更新系统
+    update_system()
+    # 升级所有包
+    upgrade_all()
+    # 更新到最新的 CentOS 7 版本
+    update_to_centos7_latest()
+
+    print("升级完成。")
